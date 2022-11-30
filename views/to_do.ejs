@@ -19,7 +19,7 @@
             <h1> To-do App</h1>
             <!-- //from div -->
             <div class="form-conatiner">
-                <form action="/addTask" method="post">
+                <form class="form" action="/addTask" method="post">
                     <div class="desc">
                         <label for="">Description</label>
                         <input type="text" placeholder="What have to do today!" name="description">
@@ -31,7 +31,7 @@
                             <option value="personal">Personal</option>
                             <option value="home">Home</option>
                             <option value="work">Work</option>
-                            <option value="clean">Cleaning</option>
+                            <option value="cleaning">Cleaning</option>
 
                         </select>
 
@@ -43,32 +43,34 @@
 
                     <div id="new-item">
                         <label for=""></label>
-                        <button type="submit">New Task</button>
-                    </div>
-                    <div id="delete">
-                        <div>
-
-                            <a href="/delete">Delete</a>
-                        </div>
+                        <button type="submit">Add Task</button>
                     </div>
 
-                </form>
-            </div>
-            <div class="task-list">
-                <ul>
-                    <% for (let i of task_list) {%>
-                    <li id="task-list">
-                        <div class="task-detail">
-                            <input type="checkbox" id="enabled<%= i.objectId%>" name="<%=i.category %>">
-                            <p><%= i.description %></p>
-                            <p><%= i.date %></p>
-                            <p><%= i.category %></p>
-                        </div>
-                    </li>
 
-                    <%  } %>
-                </ul>
+
             </div>
+            </form>
+            <form action="/delete" method="post">
+                <div class="task-list">
+                    <ul>
+                        <% for (let i of task_list) {%>
+                        <li id="task-list">
+                            <div class="task-detail">
+                                <input type="checkbox" name="checkbox" value="<%= i.id %>"
+                                    onchange="this.form.submit()" />
+
+
+                                <p><%=  moment(i.date).format('Do MMMM, YYYY')   %></p>
+                                <p><%= i.description %></p>
+                                <p><%= i.category %></p>
+                            </div>
+                        </li>
+
+                        <%  } %>
+                    </ul>
+                </div>
+            </form>
+
 
 
         </div>

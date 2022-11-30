@@ -3,6 +3,7 @@ const port = 8000;
 const path = require("path");
 
 const app = express();
+app.locals.moment = require("moment");
 //*****  Config Db File.. */
 const db = require("./config/mongoose");
 const To_Do = require("./model/to-do");
@@ -67,6 +68,20 @@ app.post("/addTask", (req, res) => {
       return res.redirect("back");
     }
   );
+});
+
+//delete data from database...
+
+app.post("/delete", function (req, res) {
+  console.log(req.body.checkbox);
+  const checkedItemId = req.body.checkbox;
+  console.log(checkedItemId);
+  To_Do.findByIdAndRemove(checkedItemId, function (err) {
+    if (!err) {
+      console.log("Successfully deleted the Id");
+    }
+    res.redirect("/");
+  });
 });
 
 ///server listening ********///
